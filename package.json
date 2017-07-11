@@ -1,8 +1,9 @@
 {
   "name": "ui-playground",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
+    "express": "^4.15.3",
+    "path": "^0.12.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-icons": "^2.2.5",
@@ -10,9 +11,15 @@
     "styled-components": "^2.1.1"
   },
   "scripts": {
+    "now-start": "node server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "now",
+    "alias": "now alias"
+  },
+  "now": {
+    "alias": "toggle-tutorial"
   }
 }

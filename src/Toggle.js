@@ -1,7 +1,6 @@
 import React from "react";
 import CheckMark from "react-icons/lib/fa/check";
-import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const ToggleBox = styled.div`
   overflow: hidden;
@@ -16,9 +15,8 @@ const ToggleBox = styled.div`
   ${props =>
     props.selected &&
     !props.disabled &&
-    css`
+    `
       border: 1px solid #ffffff;
-
       background-color: rgb(94,233,171);
       :hover {
         background-color: rgb(67, 167, 122);
@@ -26,21 +24,21 @@ const ToggleBox = styled.div`
     `} ${props =>
       !props.selected &&
       !props.disabled &&
-      css`
+      `
       background-color: #EAE9E9;
       :hover {
         background-color: rgb(183, 183, 183);
       }
   `} ${props =>
       props.disabled &&
-      css`
-        border: none;
+      `
+      border: none;
       background-color: #EAE9E9;
   `};
-  transition: all 0.1s linear 0.1s;
+  transition: all 0.1s ease 0.1s;
 `;
 
-const StyledToggleThumb = styled.div`
+const ToggleThumb = styled.div`
   width: 31px;
   height: 34px;
   margin: 1.5px 1px 1px;
@@ -50,81 +48,32 @@ const StyledToggleThumb = styled.div`
   box-shadow: -1px 0 3px 0 rgba(0, 0, 0, 0.19),
     inset 0 -1px 1px 0 rgba(0, 0, 0, 0.50);
   border-radius: 3px;
-  transition: ${props =>
-    !props.selected ? "transform 0.1s linear 0.1s" : "transform 0.1s linear"};
+  transition: transform 0.3s ease;
 `;
 
-const StyledToggleCheckMark = styled(CheckMark)`
-    margin-top: 5px;
-    font-size: 24px;
-    transform: ${props =>
-      !props.selected ? "translateX(-65px)" : "translateX(-20px)"};
-    color: ${props => (!props.disabled ? "#FFFFFF" : "rgb(94,233,171)")};
-    letter-spacing: 0;
-    transition: ${props =>
-      props.selected ? "transform 0.1s linear 0.1s" : "transform 0.1s linear"};
-    text-shadow: 0 1px 0 rgba(0,0,0,0.18);
+const ToggleCheckMark = styled(CheckMark)`
+  margin-top: 5px;
+  font-size: 24px;
+  transform: ${props =>
+    !props.selected ? "translateX(-65px)" : "translateX(-20px)"};
+  color: ${props => (!props.disabled ? "#FFFFFF" : "rgb(94,233,171)")};
+  letter-spacing: 0;
+  transition: ${props =>
+    props.selected
+      ? "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.125) 0.1s"
+      : "transform 0.3s ease"};
+  text-shadow: 0 1px 0 rgba(0,0,0,0.18);
 `;
 
 class Toggle extends React.Component {
   constructor(props) {
     super(props);
-    if (this.selectedPropExists(props)) {
-      this.state = {
-        selected: this.parseBool(props.selected)
-      };
-    } else {
-      this.state = {
-        selected: false
-      };
-    }
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
-    if (this.props.disabled) {
-      return;
-    }
-    if (this.props.onChange) {
+    if (!this.props.disabled && this.props.onChange) {
       this.props.onChange(event);
-    }
-    if (!this.selectedPropExists(this.props)) {
-      return this.setState({ selected: !this.state.selected });
-    }
-  }
-
-  parseBool = value => {
-    switch (typeof value) {
-      case "boolean":
-        return value;
-      case "string":
-        if (value.toLowerCase() === "true") {
-          return true;
-        } else if (value.toLowerCase() === "false") {
-          return false;
-        } else {
-          throw new Error("Invalid Input");
-        }
-      case "number":
-        return value ? true : false;
-      default:
-        throw new Error("Invalid Input");
-    }
-  };
-
-  selectedPropExists = props => {
-    return props.selected !== null && props.selected !== undefined;
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (this.selectedPropExists(nextProps)) {
-      try {
-        const selected = this.parseBool(nextProps.selected);
-        this.setState({ selected });
-      } catch (error) {
-        console.error(error);
-        return;
-      }
     }
   }
 
@@ -132,45 +81,23 @@ class Toggle extends React.Component {
     return (
       <ToggleBox
         disabled={this.props.disabled}
-        selected={this.state.selected}
+        selected={this.props.selected}
         onClick={this.handleClick}
-        style={{ ...this.props.style }}
+        style={this.props.style}
       >
-        <StyledToggleThumb
+        <ToggleThumb
           disabled={this.props.disabled}
-          selected={this.state.selected}
+          selected={this.props.selected}
         />
         {!this.props.noIcon
-          ? <div>
-              <StyledToggleCheckMark
-                disabled={this.props.disabled}
-                selected={this.state.selected}
-              />
-            </div>
+          ? <ToggleCheckMark
+              disabled={this.props.disabled}
+              selected={this.props.selected}
+            />
           : null}
-        <input
-          style={{ visiblilty: "hidden", display: "none" }}
-          type="checkbox"
-          disabled={this.props.disabled}
-          value={this.state.checked}
-          selected={this.state.selected}
-          checked={this.state.selected}
-          ref={this.props.inputRef}
-        />
       </ToggleBox>
     );
   }
 }
-
-Toggle.propTypes = {
-  onChange: PropTypes.func,
-  disabled: PropTypes.bool,
-  inputRef: PropTypes.func,
-  selected: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-    PropTypes.string
-  ])
-};
 
 export default Toggle;

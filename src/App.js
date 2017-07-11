@@ -4,38 +4,32 @@ import "./App.css";
 import Toggle from "./Toggle";
 import styled from "styled-components";
 
-const TogglePropBox = ({ className, toggleProps, children }) => {
+const DisplayBox = ({ className, children }) => {
   return (
     <div className={className}>
-      <Toggle {...toggleProps} />
-      {Object.keys(toggleProps).map(key => {
-        return (
-          <div>
-            {key}: {JSON.stringify(toggleProps[key])}
-          </div>
-        );
-      })}
       {children}
     </div>
   );
 };
 
-const StyledTogglePropBox = styled(TogglePropBox)`
+const StyledDisplayBox = styled(DisplayBox)`
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 3px;
   padding: 2rem;
-  background-color: #bbbbbb;
+  margin: 1rem;
+  background-color: #eae9e9;
+  box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.25);
   > * {
     margin: 1rem 0;
   }
 `;
 
-const propEnumeration = [
+const propVarieties = [
   {},
-  { selected: "true", disabled: true },
-  { selected: 1, noIcon: true },
+  { selected: true, disabled: true },
+  { selected: true, noIcon: true },
   { disabled: true }
 ];
 
@@ -44,19 +38,12 @@ class App extends Component {
     super(props);
     this.state = { selected: false };
   }
-  componentDidMount() {}
   render() {
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Toggle Tutorial</h2>
-        </div>
-        <div style={{ marginTop: "1rem" }}>
-          <span style={{ color: "red", opacity: "0.55" }}>
-            controlledState:
-          </span>{" "}
-          {JSON.stringify(this.state.selected)}
         </div>
         <div
           style={{
@@ -66,52 +53,41 @@ class App extends Component {
             flexWrap: "wrap"
           }}
         >
-          {propEnumeration.map((props, index) => {
-            return <StyledTogglePropBox key={index} toggleProps={props} />;
-          })}
-          {/*Two examples below will throw errors. They represent invalid input.*/}
-          {/*<Toggle selected={"cat"} />*/}
-          {/*<Toggle selected={{ true: true }} />*/}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center"
-            }}
-          >
+          <StyledDisplayBox>
             <Toggle
-              style={{ margin: "1rem 0" }}
               selected={this.state.selected}
               onChange={() => {
                 this.setState({ selected: !this.state.selected });
               }}
             />
-            <div style={{ margin: "1rem 0" }}>
-              selected:{" "}
-              <span style={{ color: "red", opacity: "0.55" }}>
-                controlledState
-              </span>
-            </div>
-            <div style={{ margin: "1rem 0" }}>onChange: function</div>
-          </div>
+            <div>Controllable</div>
+            <div style={{ margin: "1rem 0" }}>Props</div>
 
-          <div style={{ marginTop: "1rem" }}>
-            <form
-              onSubmit={event => {
-                event.preventDefault();
-                this.setState({ selected: this.checkboxInput.checked });
-              }}
-            >
-              <Toggle
-                inputRef={node => {
-                  this.checkboxInput = node;
-                }}
-              />
-              <div style={{ margin: "2rem 0" }}>Uncontrolled</div>
-              <button style={{ margin: "0rem 0" }}>submit</button>
-            </form>
-            <div />
-          </div>
+            <code>
+              selected: (parent)this.state.selected{" "}
+              <span style={{ color: "red", opacity: "0.55" }}>
+                {JSON.stringify(this.state.selected)}
+              </span>
+            </code>
+            <code>
+              onChange: () => this.setState({"{selected: !this.state.selected}"})
+            </code>
+          </StyledDisplayBox>
+          {propVarieties.map((props, index) => {
+            return (
+              <StyledDisplayBox key={index}>
+                <Toggle {...props} />
+                <div style={{ margin: "1rem 0" }}>Props</div>
+                {Object.keys(props).map((key, index) => {
+                  return (
+                    <code>
+                      {key}: {JSON.stringify(props[key])}
+                    </code>
+                  );
+                })}
+              </StyledDisplayBox>
+            );
+          })}
         </div>
       </div>
     );
