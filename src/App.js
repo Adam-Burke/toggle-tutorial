@@ -19,7 +19,7 @@ const StyledDisplayBox = styled(DisplayBox)`
   border-radius: 3px;
   padding: 2rem;
   margin: 1rem;
-  background-color: #eae9e9;
+  background-color: #ffffff;
   box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.25);
   > * {
     margin: 1rem 0;
@@ -60,7 +60,6 @@ class App extends Component {
                 this.setState({ selected: !this.state.selected });
               }}
             />
-            <div>Controllable</div>
             <div style={{ margin: "1rem 0" }}>Props</div>
 
             <code>
