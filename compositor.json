@@ -1,0 +1,97 @@
+{
+  "name": "Adam-Burke/toggle-tutorial",
+  "version": "0.1.4",
+  "libraries": {
+    "xv": "^1.1.25"
+  },
+  "title": "Toggle tutorial",
+  "branch": "master",
+  "style": {
+    "name": "Future",
+    "componentSet": {
+      "nav": "nav/BasicNav",
+      "header": "header/BannerHeader",
+      "article": "article/BasicArticle",
+      "footer": "footer/BasicFooter"
+    },
+    "fontFamily": "\"Avenir Next\", Helvetica, sans-serif",
+    "heading": {
+      "fontWeight": 500,
+      "textTransform": "uppercase",
+      "letterSpacing": "0.2em"
+    },
+    "alternativeText": {
+      "textTransform": "uppercase",
+      "fontWeight": 400,
+      "letterSpacing": "0.2em",
+      "opacity": 0.75
+    },
+    "colors": {
+      "text": "#333",
+      "background": "#fff",
+      "primary": "#666",
+      "secondary": "#888",
+      "highlight": "#1f80ff",
+      "muted": "#f6f6f6",
+      "border": "#eee"
+    },
+    "layout": {
+      "centered": true,
+      "maxWidth": 1024,
+      "bannerHeight": "80vh"
+    }
+  },
+  "content": [
+    {
+      "component": "nav",
+      "links": [
+        {
+          "href": "https://github.com/Adam-Burke/toggle-tutorial",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://npmjs.com/package/ui-playground",
+          "text": "npm"
+        }
+      ]
+    },
+    {
+      "component": "header",
+      "heading": "toggle-tutorial",
+      "subhead": "Tutorial using create-react-app to explore sketch design and creating react components with the styled-components library. ",
+      "children": [
+        {
+          "component": "ui/TweetButton",
+          "text": "toggle-tutorial: Tutorial using create-react-app to explore sketch design and creating react components with the styled-components library. ",
+          "url": null
+        },
+        {
+          "component": "ui/GithubButton",
+          "user": "Adam-Burke",
+          "repo": "toggle-tutorial"
+        }
+      ],
+      "text": "v0.1.0"
+    },
+    {
+      "component": "article",
+      "metadata": {
+        "source": "github.readme"
+      },
+      "html": "\n<p>Tutorial using create-react-app to explore how sketch, react, styled components and Zeits now can be used together. </p>\n<h2>Tutorial</h2>\n<p><a href=\"https://medium.com/p/50fda641a4ec/edit\">https://medium.com/p/50fda641a4ec/edit</a></p>\n<h2>demo</h2>\n<p><a href=\"https://toggle-tutorial.now.sh/\">https://toggle-tutorial.now.sh/</a></p>\n"
+    },
+    {
+      "component": "footer",
+      "links": [
+        {
+          "href": "https://github.com/Adam-Burke/toggle-tutorial",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://github.com/Adam-Burke",
+          "text": "Adam-Burke"
+        }
+      ]
+    }
+  ]
+}
